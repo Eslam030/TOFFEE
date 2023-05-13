@@ -1,8 +1,5 @@
 import java.util.*;
 public class Main {
-    
-
- 
     public static void main(String[] args) {
 
         system toffeeSystem = new system() ;
@@ -12,8 +9,6 @@ public class Main {
         Category x = new Category("Chocolate");
         Scanner sc = new Scanner(System.in); 
         data.add_product(data.productsNumber()+1,"GalaxyWhite","Galaxy",20.5,x,false);
-        //data.addCustomer("Mina", "Mena@gmail.com", "0114040", data.customersNumber()+1, "asd");
-
         while (!toffeeSystem.checkLogged()){
             toffeeSystem.StartupMenu() ;
             UserSignupLogin = toffeeSystem.checkLogged();
@@ -21,6 +16,7 @@ public class Main {
         // done login and signup
         while(true){
             data.DisplayAllProducts();
+            current = toffeeSystem.getCurrenCustomer() ;
             System.out.println("\nplease Enter a choice: \n1-add product to Cart \n2-Make an order \n3-Search for a product\n=> ");
             sc = new Scanner(System.in) ;
             int a2 = sc.nextInt();
@@ -51,7 +47,7 @@ public class Main {
             } else if (a2 == 2) {
                 if (UserSignupLogin) {
                     //check if the current list of order in that user is empty or not
-                    if (current.getOrders().get(current.numOfOrders()).ProductsInOrder().isEmpty()) {
+                    if (current.returnCart().isEmpty()) {
                         System.out.println("\nSorry your order list is empty please add some products.");
                     }else{
                         //to do make the user buy or choose the payment method

@@ -59,14 +59,14 @@ public class system {
             System.out.println("Enter Your Password: ");
             String a2 = myObj.nextLine();
             if (data.checkLogin(id, a2)) {
+                currenCustomer = data.rCustomer(id);
+                logged = true ;
                 break;
             }else{
                 System.out.println("there must be something Wrong in Your id or Password!");
                 return;
             }
         }
-        currenCustomer = data.rCustomer(id);
-        logged = true ;
     }
 
     private static boolean signUP(){
