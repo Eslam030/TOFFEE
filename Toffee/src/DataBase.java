@@ -1,9 +1,10 @@
 import java.util.*;
 public class DataBase {
-    private Vector<Admin> admins = new Vector<>() ;
-    private Vector<Customer> customers = new Vector<>() ;
-    private Vector<Category> categories = new Vector<>() ;
-    private Vector<Product> products = new Vector<>() ;
+    int order_id = 1 ;
+    private final Vector<Admin> admins = new Vector<>() ;
+    private final Vector<Customer> customers = new Vector<>() ;
+    private final Vector<Category> categories = new Vector<>() ;
+    private final Vector<Product> products = new Vector<>() ;
 
     public int customersNumber(){
         return customers.size();
@@ -15,8 +16,7 @@ public class DataBase {
     public boolean checkLogin(Integer id,String password){
         boolean f = false;
         for (Customer a : customers) {
-            System.out.println(password);
-            if ( a.get_password().equals(password) && a.get_id() == id) { //
+            if ( a.get_password().equals(password) && a.get_id().equals(id)) { //
                 f = true; 
                 break;
             }
@@ -172,7 +172,7 @@ public class DataBase {
         System.out.println("-------------------------------------------");
     }
     
-    public boolean searchforCustomer(Customer c2){
+    public boolean searchForCustomer(Customer c2){
         boolean x = false;
         for (Customer c : customers) {
             if (c == c2) {
@@ -184,7 +184,7 @@ public class DataBase {
     }
 
     // search for customer using name
-    public void searchforCustomerByName (String name){
+    public void searchForCustomerByName (String name){
         for (Customer c : customers) {
             if (c.get_name() == name) {
                 System.out.println(c.toString());
@@ -192,7 +192,7 @@ public class DataBase {
         }
     }
     // search for user using id
-    public void searchforCustomerByID (Integer id){
+    public void searchForCustomerByID (Integer id){
         for (Customer c : customers) {
             if (c.get_id() == id) {
                 System.out.println(c.toString());
@@ -201,7 +201,7 @@ public class DataBase {
     }
 
     public void get_last_order (Customer c){
-        if (searchforCustomer(c)) {
+        if (searchForCustomer(c)) {
             c.LastOrder();
         }
     }
@@ -219,29 +219,4 @@ public class DataBase {
             System.out.println(customers.get(i).toString()  + customers.get(i).getOrders().toString());
         }
     }
-    
-    // // display all products in the catalog
-    // public void display_catalog (){
-    //     for (Map.Entry<Integer , Product> out : this.catalog.entrySet()){
-    //         System.out.println("id : " + out.getKey() + "\n" + out.getValue());
-    //     }
-    // }
-
-
-    // public void search_for_product (Product product) throws NOT_EXIST_EXCEPTION {
-    //     if (this.catalog.containsKey(product.get_id())){
-    //     }else {
-    //         throw new NOT_EXIST_EXCEPTION () ;
-    //     }
-    // }
-
-    // public void search_for_product (Product product) throws NOT_EXIST_EXCEPTION {
-    //     if (this.catalog.containsKey(product.get_id())){
-    //     }else {
-    //         throw new NOT_EXIST_EXCEPTION () ;
-    //     }
-    // }
-
-
-
 }

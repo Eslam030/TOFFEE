@@ -3,6 +3,7 @@ public class Order {
     private Integer order_id ;
     private Double price = 0.0 ,DiscountAmount = 0.0;
     private Customer customer;
+    private String address , paymentMethod ;
     private ArrayList<Product>products = new ArrayList<>() ;
     private void set_Price () {
         //calculate the price of products.
@@ -73,12 +74,14 @@ public class Order {
         for (int i = 0 ; i < this.products.size() ; i++){
             System.out.println( this.products.get(i).toString());
         }
-        // //all content that is in cart.
-        // if (!customer.returnCart().isEmpty()) {
-        //     System.out.println( this.customer.returnCart().toString());
-        // }
         System.out.println("Order Price is: " + OrderPrice());
        
+    }
+    public void setAddress (String address){
+        this.address = address ;
+    }
+    public void setPaymentMethod (String method) {
+        this.paymentMethod = method ;
     }
 
     public String toString (){

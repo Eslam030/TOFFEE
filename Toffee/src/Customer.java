@@ -4,11 +4,10 @@ public class Customer extends User{
     private Double LoyaltyPoints ,GiftCardCode;
     private ArrayList<Order>orders = new ArrayList<>() ;
     private Order currentOrder;
-    private static Integer Numoforders = 1;
+    private static Integer _numOfOrders = 1;
     private Cart cart ;
 
-    public Customer(){
-        // NumofCustomers++;
+    Customer(){
     }
 
     public Customer(Customer c){
@@ -17,7 +16,7 @@ public class Customer extends User{
         this.GiftCardCode = c.getGiftCardCode();
         this.cart = c.returnCart();
         this.orders = c.getOrders();
-        this.currentOrder = new Order(this, Numoforders);
+        this.currentOrder = new Order(this, _numOfOrders);
     }
 
     public Customer (String name , String Email , String phone , Integer id, String password){
@@ -25,7 +24,7 @@ public class Customer extends User{
         cart = new Cart(id);
         // NumofCustomers++;
         //this in the parameter refers to this object.
-        this.currentOrder = new Order(this, Numoforders);
+        this.currentOrder = new Order(this, _numOfOrders);
     }
 
     public void DisplayCustomer(){
@@ -33,12 +32,12 @@ public class Customer extends User{
         System.out.println("User Name: " + get_name());
     }
 
-    public void OrderFinished(){
-        Numoforders++;
+    public void orderFinished(){
+        _numOfOrders++;
         //add the current order to the list. 
         orders.add(currentOrder);
         //make a new order.
-        this.currentOrder = new Order(this, Numoforders);
+        this.currentOrder = new Order(this, _numOfOrders);
     }
 
     public Double getLoyaltyPoints() {
@@ -57,16 +56,12 @@ public class Customer extends User{
         this.GiftCardCode = GiftCardCode ;
     }
 
-    public Integer Numoforders() {
-        return Numoforders ;
+    public Integer numOfOrders() {
+        return _numOfOrders;
     }
 
     //order functions.
     public ArrayList<Order> getOrders () {
-        //TO DO Will throw exeption.
-        // if (orders.isEmpty()) {
-        //     System.out.println("There is no orders Exists!");
-        // }
         return orders ;
     }
 
@@ -81,7 +76,7 @@ public class Customer extends User{
     }
 
     public void LastOrder(){
-        System.out.println(orders.get(Numoforders).toString());
+        System.out.println(orders.get(_numOfOrders).toString());
     }
 
     //cart functions.
@@ -99,6 +94,10 @@ public class Customer extends User{
         this.cart.deleteFromCart(product);
     }
 
+    public void clearCart () {
+        this.cart.clear(); ;
+    }
+
     public void viewCart(){
         System.out.println(cart.toString());
     }
@@ -111,6 +110,14 @@ public class Customer extends User{
         for(int i = 0; i < cart.getProducts().size();i++){
             this.currentOrder.AddToOrder(cart.getProducts().get(i));
         }
+    }
+
+    public void addAddress (String address) {
+        this.currentOrder.setAddress(address);
+    }
+
+    public void addPaymentMethod (String method) {
+        this.currentOrder.setPaymentMethod(method);
     }
 
 }
