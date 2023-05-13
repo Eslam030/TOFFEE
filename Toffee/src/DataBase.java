@@ -1,163 +1,247 @@
 import java.util.*;
 public class DataBase {
-    // Map for users
-    private HashMap<Integer , User> users = new HashMap<>() ;
-    // Map for Orders
-    private HashMap<Integer , Cart> carts = new HashMap<>() ;
-    // Map for cart
-    private HashMap<Integer , ArrayList<Order>> orders_per_user = new HashMap<>() ;
-    // Map for Products
-    private HashMap<Integer , Product> catalog = new HashMap<>() ;
-    private ArrayList<Integer> product_ids = new ArrayList<>() ;
-    //private ArrayList<Order> orders = new ArrayList<>() ;
-    private HashMap<Integer , Order> orders = new HashMap<>() ;
-    private HashMap<Integer , Order> waitedOrders = new HashMap<>() ;
+    private Vector<Admin> admins = new Vector<>() ;
+    private Vector<Customer> customers = new Vector<>() ;
+    private Vector<Category> categories = new Vector<>() ;
+    private Vector<Product> products = new Vector<>() ;
 
+    public int customersNumber(){
+        return customers.size();
+    }
 
-    public void add_user (User user){
-        // add user to the database
-        this.users.put(user.get_id() , user) ;
-        // create a cart for this user
-        Cart cart = new Cart (user.get_id()) ;
-        this.carts.put(user.get_id() , cart) ;
-        // create an empty list of orders for this user
-        ArrayList<Order> orders  = new ArrayList<>() ;
-        this.orders_per_user.put(user.get_id() , orders) ;
+    public Integer productsNumber(){
+        return customers.size();
     }
-    // add products to the user's cart
-    public void add_to_cart (User user ,  Product product){
-        this.carts.get(user.get_id()).add_to_cart(product);
+    public boolean checkLogin(Integer id,String password){
+        boolean f = false;
+        for (Customer a : customers) {
+            System.out.println(password);
+            if ( a.get_password().equals(password) && a.get_id() == id) { //
+                f = true; 
+                break;
+            }
+        }
+        return f;
     }
-    // return the cart of the current user
-    public Cart get_cart (User user) {
-        return this.carts.get(user.get_id()) ;
+
+    public void addAdmin(Admin a){
+        this.admins.add(a);
     }
-    // add order to specific user
-    public void add_order (User user , Order order){
-        Cart cart = this.get_cart(user) ;
-        Cart newCart = new Cart(cart.get_id() , cart.getProducts()) ;
-        order.setCart(newCart);
-        this.orders_per_user.get(user.get_id()).add(order) ;
-        this.orders.put(order.get_order_id() , order) ;
-        cart = new Cart(user.get_id()) ;
-        carts.put(user.get_id() , cart) ;
+
+    public void addAdmin (String name , String Email , String phone , Integer id, String password){
+        Admin admin = new Admin(name, Email, phone, id, password);
+        // add customer to the database
+        this.admins.add( admin) ;
     }
-    // add product to the catalog
-    public void add_product (Product product) {
-        this.catalog.put(product.get_id() , product) ;
-        this.product_ids.add(product.get_id()) ;
+
+    public void deleteAdmin (Integer id) {
+        for (Admin a : admins) {
+            if (a.get_id() == id) {
+                admins.remove(a);
+                break;
+            }
+        }
     }
+
+    public void addCustomer (String name , String Email , String phone , Integer id, String password){
+        Customer customer = new Customer(name, Email, phone, id, password);
+        // add customer to the database
+        this.customers.add( customer) ;
+    }
+
+    public void addCustomer(Customer c){
+        this.customers.add(c);
+    }    
+
+    public Customer rCustomer(Integer id){
+        Customer c = new Customer();
+        for (Customer a : customers) {
+            if (a.get_id() == id) {
+                c = a;
+                break;
+            }
+        }
+        return c;
+    }
+    // delete customer 
+    public void delete_Customer (Integer id) {
+        for (Customer a : customers) {
+            if (a.get_id() == id) {
+                customers.remove(a);
+                break;
+            }
+        }
+    }
+
+    public void addCategory(String CatName){
+        Category newCat = new Category(CatName);
+        categories.add(newCat);
+    }
+
+    public void deleteCategory(String CatName){
+        for (int i = 0; i < categories.size(); i++) {
+            if (categories.get(i).get_name() == CatName) {
+                categories.get(i).deleteCategory();
+                categories.remove(i);
+                break;
+            }
+        }
+    }
+
+    //return category used it to add a product.
+    public Category rCategory(String CatName){
+        Category category = new Category();
+        for (Category a : categories) {
+            if (a.get_name() == CatName) {
+                category = a;
+                break;
+            }
+        }
+        return category;
+    }
+    
+    public void DisplayAllProducts(){
+        for (Product p : products) {
+            System.out.println(p.toString());
+        }
+    }
+
+    public Product rProduct(Integer id){
+        Product p = new Product();
+        for (Product a : products) {
+            if (a.get_id() == id) {
+                p = a;
+                break;
+            }
+        }
+        return p;
+    }
+    // add product to the data
+    public void add_product (Integer id , String name , String brand , Double price , Category CategoryName,Boolean isLoose) {
+        Product p = new Product(id, name, brand, price, CategoryName, isLoose); 
+        this.products.add(p) ;
+    }
+    
+    // delete product form list of products
+    public void delete_product (Integer id) {
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).get_id() == id){
+                products.remove(i);
+            }
+        }
+    }
+    
+    public void searchForProduct(Integer id){
+        for (Product p : products) {
+            if (p.get_id() == id) {
+                System.out.println(p.toString());
+                break;
+            }
+        }
+    }
+
+    public void searchForProduct(String name){
+        for (Product p : products) {
+            if (p.get_name().equals(name)) {
+                System.out.println(p.toString());
+            }
+        }
+    }
+
+    public void searchForProductByCategory(String CategoryName){
+        for (Product p : products) {
+            if (p.getCategory().get_name().equals(CategoryName)) {
+                System.out.println(p.toString());
+            }
+        }
+    }
+
+    public void searchForProductByBrand(String brand){
+        for (Product p : products) {
+            if (p.get_brand().equals(brand)) {
+                System.out.println(p.toString());
+            }
+        }
+    }
+
     // print all users in the system
-    public void get_users_data () {
-        for (Map.Entry<Integer , User> out: this.users.entrySet()) {
-            System.out.println("User info\n" + out.getValue());
+    public void get_customers_data () {
+        for (Customer c : customers) {
+            System.out.println(c.toString());
         }
         System.out.println("-------------------------------------------");
     }
-    // search for user using User object
-    public void search_for_user (User user) throws NOT_EXIST_EXCEPTION{
-        if (!this.users.containsKey(user.get_id())){
-            throw new NOT_EXIST_EXCEPTION() ;
-        }
-    }
-    // search for user using name
-    public void search_for_user (String name) throws NOT_EXIST_EXCEPTION{
-        Boolean exist = false ;
-        User user = new User() ;
-        for (Map.Entry<Integer , User> out : this.users.entrySet()){
-            if (out.getValue().get_name() == name){
-                user = out.getValue() ;
-                exist = true ;
+    
+    public boolean searchforCustomer(Customer c2){
+        boolean x = false;
+        for (Customer c : customers) {
+            if (c == c2) {
+                x =true;
                 break;
             }
         }
-        if (!exist){
-            throw new NOT_EXIST_EXCEPTION () ;
+        return x;
+    }
+
+    // search for customer using name
+    public void searchforCustomerByName (String name){
+        for (Customer c : customers) {
+            if (c.get_name() == name) {
+                System.out.println(c.toString());
+            }
         }
     }
     // search for user using id
-    public void search_for_user (Integer id) throws NOT_EXIST_EXCEPTION {
-        if (!this.users.containsKey(id)){
-            throw new NOT_EXIST_EXCEPTION() ;
+    public void searchforCustomerByID (Integer id){
+        for (Customer c : customers) {
+            if (c.get_id() == id) {
+                System.out.println(c.toString());
+            }
         }
     }
-    public void get_last_order (User user){
-        try  {
-            this.search_for_user(user) ;
-            System.out.println(this.orders_per_user.get(user.get_id()).get(orders_per_user.get(user.get_id()).size() - 1)) ;
-        }catch (NOT_EXIST_EXCEPTION ex) {
 
+    public void get_last_order (Customer c){
+        if (searchforCustomer(c)) {
+            c.LastOrder();
         }
     }
+
     // print orders in this class
     public void get_orders_info () {
-        for (int i = 0 ; i < this.orders.size() ; i++){
-            System.out.println(orders.get(i));
+        for (int i = 0 ; i < this.customers.size() ; i++){
+            System.out.println(customers.get(i).getOrders().toString());
         }
     }
+    
     // print orders based on the user id and name
     public void get_orders_info_with_id_name () {
-        for (Map.Entry<Integer , ArrayList<Order>> out : this.orders_per_user.entrySet()){
-            System.out.println("id : " + out.getKey());
-            for (int i = 0 ; i < out.getValue().size() ; i++){
-                System.out.println(out.getValue().get(i));
-            }
+        for (int i = 0 ; i < this.customers.size() ; i++){
+            System.out.println(customers.get(i).toString()  + customers.get(i).getOrders().toString());
         }
     }
-    // display all products in the catalog
-    public void display_catalog (){
-        for (Map.Entry<Integer , Product> out : this.catalog.entrySet()){
-            System.out.println("id : " + out.getKey() + "\n" + out.getValue());
-        }
-    }
-    public void history (User user) {
-        ArrayList<Order> userHistory = this.orders_per_user.get(user.get_id()) ;
-        for (int i = 0 ; i < userHistory.size() ; i ++){
-            System.out.println(userHistory.get(i));
-        }
-    }
-    public void display_cart (User user){
-        System.out.println(carts.get(user.get_id()));
-    }
+    
+    // // display all products in the catalog
+    // public void display_catalog (){
+    //     for (Map.Entry<Integer , Product> out : this.catalog.entrySet()){
+    //         System.out.println("id : " + out.getKey() + "\n" + out.getValue());
+    //     }
+    // }
 
-    public void search_for_product (Product product) throws NOT_EXIST_EXCEPTION {
-        if (this.catalog.containsKey(product.get_id())){
-        }else {
-            throw new NOT_EXIST_EXCEPTION () ;
-        }
-    }
-    // delete user and cart and all of his info and orders
-    public void delete_user (User user) {
-        try {
-            this.search_for_user(user);
-            this.users.remove(user.get_id()) ;
-            this.carts.remove(user.get_id()) ;
-            ArrayList<Order> orderList = orders_per_user.get(user.get_id()) ;
-            this.orders_per_user.remove(user.get_id()) ;
-            for (int i = 0 ; i < orderList.size() ; i ++){
-                this.orders.remove(orderList.get(i).get_order_id()) ;
-            }
-        }catch (NOT_EXIST_EXCEPTION ex){
-            System.out.println(ex);
-        }
 
-    }
-    // delete order using order id
-    public void delete_order (Order order ){
-        // delete the order from orders
-        this.orders.remove(order.get_order_id()) ;
-        ArrayList<Order> ordersList = this.orders_per_user.get(order.get_customer_id()) ;
-        for (int i = 0 ; i < ordersList.size() ; i ++){
-            if (ordersList.get(i).get_order_id() == order.get_order_id()){
-                ordersList.remove(i) ;
-                break;
-            }
-        }
-        // delete the order from the user's orders
-        this.orders_per_user.put(order.get_customer_id() , ordersList) ;
-    }
-    // delete product form list of products
-    public void delete_product (Product product) {
-        this.catalog.remove(product.get_id()) ;
-    }
+    // public void search_for_product (Product product) throws NOT_EXIST_EXCEPTION {
+    //     if (this.catalog.containsKey(product.get_id())){
+    //     }else {
+    //         throw new NOT_EXIST_EXCEPTION () ;
+    //     }
+    // }
+
+    // public void search_for_product (Product product) throws NOT_EXIST_EXCEPTION {
+    //     if (this.catalog.containsKey(product.get_id())){
+    //     }else {
+    //         throw new NOT_EXIST_EXCEPTION () ;
+    //     }
+    // }
+
+
+
 }
