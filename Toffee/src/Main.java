@@ -51,12 +51,38 @@ public class Main {
             } else if (a2 == 2) {
                 if (UserSignupLogin) {
                     //check if the current list of order in that user is empty or not
-                    if (current.getOrders().get(current.Numoforders()).ProductsInOrder().isEmpty()) {
+                    if (current.getOrders().get(current.numOfOrders()).ProductsInOrder().isEmpty()) {
                         System.out.println("\nSorry your order list is empty please add some products.");
                     }else{
-
-
                         //to do make the user buy or choose the payment method
+                        System.out.println("Enter Your address clearly please");
+                        sc = new Scanner(System.in) ;
+                        String address = sc.nextLine() ;
+                        System.out.println("Enter the payment method you want\n1- payment on delivery\n2- online payment using " +
+                                "paypal , visa , etc ....");
+                        sc = new Scanner(System.in) ;
+                        int choice = sc.nextInt() ;
+                        String method ;
+                        while (true) {
+                            if (choice == 1){
+                                method = "payment on delivery" ;
+                                break;
+                            }else if (choice == 2) {
+                                method = "online" ;
+                                break;
+                            }else {
+                                System.out.println("Wrong choice");
+                                System.out.println("Enter the payment method you want\n1- payment of delivery\n2- online payment using " +
+                                        "paypal , visa , etc ....");
+                                sc = new Scanner(System.in) ;
+                                choice = sc.nextInt() ;
+                            }
+                        }
+                        current.addProductSFromCartToOrder();
+                        current.addAddress(address);
+                        current.addPaymentMethod(method);
+                        current.orderFinished();
+                        current.clearCart();
                     }
                 }else {
                     System.out.println("\nSorry to do that You need to log-in or sign up.");

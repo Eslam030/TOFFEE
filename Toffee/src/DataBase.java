@@ -1,5 +1,6 @@
 import java.util.*;
 public class DataBase {
+    int order_id = 1 ;
     private final Vector<Admin> admins = new Vector<>() ;
     private final Vector<Customer> customers = new Vector<>() ;
     private final Vector<Category> categories = new Vector<>() ;
@@ -171,7 +172,7 @@ public class DataBase {
         System.out.println("-------------------------------------------");
     }
     
-    public boolean searchforCustomer(Customer c2){
+    public boolean searchForCustomer(Customer c2){
         boolean x = false;
         for (Customer c : customers) {
             if (c == c2) {
@@ -191,7 +192,7 @@ public class DataBase {
         }
     }
     // search for user using id
-    public void searchforCustomerByID (Integer id){
+    public void searchForCustomerByID (Integer id){
         for (Customer c : customers) {
             if (c.get_id() == id) {
                 System.out.println(c.toString());
@@ -200,7 +201,7 @@ public class DataBase {
     }
 
     public void get_last_order (Customer c){
-        if (searchforCustomer(c)) {
+        if (searchForCustomer(c)) {
             c.LastOrder();
         }
     }
