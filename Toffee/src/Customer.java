@@ -7,7 +7,7 @@ public class Customer extends User{
     private static Integer Numoforders = 1;
     private Cart cart ;
 
-    public Customer(){
+    Customer(){
         // NumofCustomers++;
     }
 

@@ -1,9 +1,9 @@
 import java.util.*;
 public class DataBase {
-    private Vector<Admin> admins = new Vector<>() ;
-    private Vector<Customer> customers = new Vector<>() ;
-    private Vector<Category> categories = new Vector<>() ;
-    private Vector<Product> products = new Vector<>() ;
+    private final Vector<Admin> admins = new Vector<>() ;
+    private final Vector<Customer> customers = new Vector<>() ;
+    private final Vector<Category> categories = new Vector<>() ;
+    private final Vector<Product> products = new Vector<>() ;
 
     public int customersNumber(){
         return customers.size();
@@ -15,8 +15,7 @@ public class DataBase {
     public boolean checkLogin(Integer id,String password){
         boolean f = false;
         for (Customer a : customers) {
-            System.out.println(password);
-            if ( a.get_password().equals(password) && a.get_id() == id) { //
+            if ( a.get_password().equals(password) && a.get_id().equals(id)) { //
                 f = true; 
                 break;
             }
@@ -184,7 +183,7 @@ public class DataBase {
     }
 
     // search for customer using name
-    public void searchforCustomerByName (String name){
+    public void searchForCustomerByName (String name){
         for (Customer c : customers) {
             if (c.get_name() == name) {
                 System.out.println(c.toString());
@@ -241,7 +240,4 @@ public class DataBase {
     //         throw new NOT_EXIST_EXCEPTION () ;
     //     }
     // }
-
-
-
 }
