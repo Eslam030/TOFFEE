@@ -219,26 +219,4 @@ public class DataBase {
             System.out.println(customers.get(i).toString()  + customers.get(i).getOrders().toString());
         }
     }
-    
-    // // display all products in the catalog
-    // public void display_catalog (){
-    //     for (Map.Entry<Integer , Product> out : this.catalog.entrySet()){
-    //         System.out.println("id : " + out.getKey() + "\n" + out.getValue());
-    //     }
-    // }
-
-
-    // public void search_for_product (Product product) throws NOT_EXIST_EXCEPTION {
-    //     if (this.catalog.containsKey(product.get_id())){
-    //     }else {
-    //         throw new NOT_EXIST_EXCEPTION () ;
-    //     }
-    // }
-
-    // public void search_for_product (Product product) throws NOT_EXIST_EXCEPTION {
-    //     if (this.catalog.containsKey(product.get_id())){
-    //     }else {
-    //         throw new NOT_EXIST_EXCEPTION () ;
-    //     }
-    // }
 }

@@ -8,7 +8,6 @@ public class Customer extends User{
     private Cart cart ;
 
     Customer(){
-        // NumofCustomers++;
     }
 
     public Customer(Customer c){
@@ -63,10 +62,6 @@ public class Customer extends User{
 
     //order functions.
     public ArrayList<Order> getOrders () {
-        //TO DO Will throw exeption.
-        // if (orders.isEmpty()) {
-        //     System.out.println("There is no orders Exists!");
-        // }
         return orders ;
     }
 

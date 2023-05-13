@@ -74,10 +74,6 @@ public class Order {
         for (int i = 0 ; i < this.products.size() ; i++){
             System.out.println( this.products.get(i).toString());
         }
-        // //all content that is in cart.
-        // if (!customer.returnCart().isEmpty()) {
-        //     System.out.println( this.customer.returnCart().toString());
-        // }
         System.out.println("Order Price is: " + OrderPrice());
        
     }

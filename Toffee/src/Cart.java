@@ -23,7 +23,6 @@ public class Cart {
     public void deleteFromCart (Product product) {
         this.products.remove(product);
     }
-    //i think will be error here because of assigning to objects to each other without overloading or it just c++ things i will see
     public Product returnProduct(Integer PID){
         Product returnedProduct = new Product();
         for (int i = 0 ; i < this.products.size() ; i++){
