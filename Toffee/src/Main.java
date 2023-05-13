@@ -2,6 +2,35 @@ import java.util.*;
 public class Main {
     static DataBase data = new DataBase() ;
     static Customer currenCustomer = new Customer();
+    
+    public static boolean isValidEmailAddress(String email) {
+        if (email == null || email.length() == 0) {
+            return false;
+        }
+        int atIndex = email.indexOf("@");
+        if (atIndex < 1) {
+            return false;
+        }
+        String beforaAT = email.substring(0, atIndex);
+        String afterAT = email.substring(atIndex + 1);
+        if (beforaAT.length() == 0 || beforaAT.endsWith(".") || beforaAT.startsWith(".")) {
+            return false;
+        }
+        if (afterAT.length() == 0 || afterAT.endsWith(".") || afterAT.startsWith(".")) {
+            return false;
+        }
+        String[] afterATParts = afterAT.split("\\.");
+        if (afterATParts.length < 2) {
+            return false;
+        }
+        for (String part : afterATParts) {
+            if (part.length() == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     static Customer Login(){
         Customer c = new Customer();
         Integer id;
@@ -28,8 +57,14 @@ public class Main {
         // String name , String Email , String phone , Integer id, String password
         System.out.println("Enter Your Name: ");
         String name = sc.nextLine();
-        System.out.println("Enter Your Email: ");
-        String Email = sc.nextLine();
+        String Email = "";
+        while (true) {
+            System.out.println("Enter Your Email: ");
+            Email = sc.nextLine();
+            if (isValidEmailAddress(Email)) {
+                break;
+            }
+        }
         System.out.println("Enter Your phone: ");
         String phone = sc.nextLine();
         System.out.println("Enter Your password: ");
@@ -52,7 +87,7 @@ public class Main {
         }
         return f;
     }
-
+ 
     public static void main(String[] args) {
 
         boolean UserSignupLogin = false;
@@ -119,7 +154,6 @@ public class Main {
                     }
             }
             break;
-
         }
         // User user  = new User("Eslam" , "esla889900@gmail.com" , "01157228162" , 20211013, "mmm") ;
         // data.add_user(user);
