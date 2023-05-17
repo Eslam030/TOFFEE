@@ -109,7 +109,7 @@ public class DataBase {
     public Product rProduct(Integer id){
         Product p = new Product();
         for (Product a : products) {
-            if (a.get_id() == id) {
+            if (a.get_id().equals(id)) {
                 p = a;
                 break;
             }

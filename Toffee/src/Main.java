@@ -41,7 +41,11 @@ public class Main {
                     int PID = sc.nextInt();
                     Product p = new Product();
                     p = data.rProduct(PID);
-                    current.AddProductToCart(p);
+                    if (p.getName() != null){
+                        current.AddProductToCart(p);
+                    }else {
+                        System.out.println("Doesn't exist a product with this id");
+                    }
                 }
 
             } else if (a2 == 2) {

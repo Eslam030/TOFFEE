@@ -73,6 +73,9 @@ public class Product {
     public void set_isLooseOrNot (Boolean isLoose){
         this.isLoose = isLoose;
     }
+    public String getName () {
+        return name;
+    }
 
     public String toString (){
         return "Name : " + name + " Id : " + id + " Category: "+ category.get_name() +"\nBrand : " + brand + "\nPrice : " + price + "\n----------------------------\n" ;
